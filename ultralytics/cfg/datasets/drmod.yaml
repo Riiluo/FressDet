@@ -1,0 +1,18 @@
+path: /path/to/your/dataset
+train: images/train
+val: images/val
+test: images/test
+
+channels: 8
+
+# Classes
+nc: 8
+names:
+  0: car
+  1: pedestrian
+  2: bike
+  3: awning-bike
+  4: van
+  5: truck
+  6: bus
+  7: tricycle

@@ -1,0 +1,30 @@
+task: obb
+nc: 8
+scales:
+  n: [1, 1, 1024]
+
+backbone:
+  - [-1, 1, RELiftGCBA, [16]]
+  - [-1, 1, SpeIWMetaformerStage, []]
+  - [-1, 1, PatchMerging, [32]]
+  - [-1, 1, SpeIWMetaformerStage, []]
+  - [-1, 1, PatchMerging, [64]]
+  - [-1, 1, SpeIWMetaformerStage, []]
+  - [-1, 1, PatchMerging, [128]]
+  - [-1, 1, SpeIWMetaformerStage, []]
+  - [-1, 1, RESPPF, [128]]
+
+head:
+  - [-1, 1, AREGUp, [64]]
+  - [[-1, 5], 1, Concat, [1]]
+  - [-1, 1, ReCoW, []]
+  - [-1, 1, AREGUp, [64]]
+  - [[-1, 3], 1, Concat, [1]]
+  - [-1, 1, ReCoW, []]
+  - [-1, 1, DS2GCBA, [64]]
+  - [[-1, 11], 1, Concat, [1]]
+  - [-1, 1, ReCoW, []]
+  - [-1, 1, DS2GCBA, [128]]
+  - [[-1, 8], 1, Concat, [1]]
+  - [-1, 1, ReCoW, []]
+  - [[14, 17, 20], 1, OAHead, [nc, 1]]
